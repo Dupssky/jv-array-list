@@ -49,25 +49,19 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public T get(int index) {
-        if (index < 0 || index >= size) {
-            throw new ArrayListIndexOutOfBoundsException("Index does not exist.");
-        }
+        indexCheck(index);
         return (T) elements[index];
     }
 
     @Override
     public void set(T value, int index) {
-        if (index < 0 || index >= size) {
-            throw new ArrayListIndexOutOfBoundsException("Index does not exist.");
-        }
+        indexCheck(index);
         elements[index] = value;
     }
 
     @Override
     public T remove(int index) {
-        if (index < 0 || index >= size) {
-            throw new ArrayListIndexOutOfBoundsException("Index does not exist.");
-        }
+        indexCheck(index);
         final Object removedObject = elements[index];
         Object[] newArray = new Object[size - 1];
         System.arraycopy(elements, 0, newArray, 0, index);
@@ -102,5 +96,11 @@ public class ArrayList<T> implements List<T> {
         Object[] newArray = new Object[elements.length + elements.length / 2];
         System.arraycopy(elements, 0, newArray, 0, elements.length);
         elements = newArray;
+    }
+
+    private void indexCheck(int index) {
+        if (index < 0 || index >= size) {
+            throw new ArrayListIndexOutOfBoundsException("Index does not exist.");
+        }
     }
 }
